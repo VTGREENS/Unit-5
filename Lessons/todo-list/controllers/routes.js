@@ -102,7 +102,6 @@ router.put("/:id", (req, res) => {
 // TODO: Delete a todo: pass the id as a param; read the file; filter to match the post_id to the id from the param but dont return what matches; return what doesn't match; write to file.
 
 router.delete("/:id", (req, res) => {
-    
     try {
         const id = Number(req.params.id)
         fs.readFile(dbPath, (err, data) => {

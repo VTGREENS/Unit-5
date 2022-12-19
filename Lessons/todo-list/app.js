@@ -3,8 +3,8 @@ const app = express();
 const PORT = 4000;
 const practiceController = require("./controllers/practice.controller");
 const auth = require("./controllers/auth");
-const routes = require("./controllers/routes")
-const cors = require("cors")
+const routes = require("./controllers/routes");
+const cors = require("cors");
 
 function logTime(req, res, next) {
   let date = new Date()
