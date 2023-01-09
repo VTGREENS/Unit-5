@@ -49,6 +49,45 @@ router.post("/", (req, res) => {
 })
 // TODO: Update a todo - pass ID value as a param; pass updated todo through the body; run through each iterable; check if post_id matches param_id; reassign the db at the index to what comes from the body; save the file.
 
+// ! Query Example for Update
+router.put("/query", (req, res) => {
+    try {
+      const id = Number(req.query.id); // Added query not params
+  
+      const todo = req.body;
+      console.log(todo);
+  
+      let result;
+      fs.readFile(dbPath, (err, data) => {
+        if (err) throw err;
+        const db = JSON.parse(data);
+  
+        db.forEach((element, index) => {
+          if (element.todo_id === id) {
+            db[index] = todo;
+            result = todo;
+            fs.writeFile(dbPath, JSON.stringify(db), (err) => console.log(err));
+          }
+        });
+  
+        result
+          ? res.status(200).json({
+              status: `ID: ${id} succesfully modified`,
+              object: result,
+            })
+          : res.status(404).json({
+              status: `ID: ${id} not found`,
+            });
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        status: `Error: ${err}`,
+      });
+    }
+  });
+  
+
 router.put("/:id", (req, res) => {
     try {
         const id = Number(req.params.id)
